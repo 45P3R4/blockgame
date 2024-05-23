@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://d38q1aeie0xm8"]
+
+[ext_resource type="Shader" path="res://chunk.gdshader" id="1_t3vft"]
+[ext_resource type="Texture2D" uid="uid://dtf8ejv25j60f" path="res://stone.png" id="2_s5rru"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_t3vft")
+shader_parameter/tex = ExtResource("2_s5rru")
