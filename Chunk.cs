@@ -1,6 +1,5 @@
 using Godot;
 
-[Tool]
 public partial class Chunk : StaticBody3D
 {
 	public enum BlockType {
@@ -65,7 +64,7 @@ public partial class Chunk : StaticBody3D
 
 	private void GenerateChunkData()
 	{
-		noise.Noise.Set("Offset", new Vector3(Offset.X, Offset.Y, 0));
+		noise.Noise.Set("Offset", new Vector3(Offset.X, Offset.Z, 0));
 
 		for (int x = 0; x < width; x++)
 			for (int z = 0; z < width; z++)
@@ -118,55 +117,55 @@ public partial class Chunk : StaticBody3D
 	{
 		st.SetNormal(Vector3.Back);
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(0, 0, 0) + position);
+		st.AddVertex(new Vector3(0, 0, 1) + position);
 		st.SetUV(new Vector2(0,1));
-		st.AddVertex(new Vector3(0, 1, 0) + position);
+		st.AddVertex(new Vector3(0, 1, 1) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(1, 1, 0) + position);
+		st.AddVertex(new Vector3(1, 1, 1) + position);
 
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(0, 0, 0) + position);
+		st.AddVertex(new Vector3(0, 0, 1) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(1, 1, 0) + position);
+		st.AddVertex(new Vector3(1, 1, 1) + position);
 		st.SetUV(new Vector2(1,0));
-		st.AddVertex(new Vector3(1, 0, 0) + position);
+		st.AddVertex(new Vector3(1, 0, 1) + position);
 	}
 
 	private void generateFront(Vector3I position)
 	{
 		st.SetNormal(Vector3.Forward);
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(1, 0, -1) + position);
+		st.AddVertex(new Vector3(1, 0, 0) + position);
 		st.SetUV(new Vector2(0,1));
-		st.AddVertex(new Vector3(1, 1, -1) + position);
+		st.AddVertex(new Vector3(1, 1, 0) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(0, 1, -1) + position);
+		st.AddVertex(new Vector3(0, 1, 0) + position);
 		
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(1, 0, -1) + position);
+		st.AddVertex(new Vector3(1, 0, 0) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(0, 1, -1) + position);
+		st.AddVertex(new Vector3(0, 1, 0) + position);
 		st.SetUV(new Vector2(1,0));
-		st.AddVertex(new Vector3(0, 0, -1) + position);
+		st.AddVertex(new Vector3(0, 0, 0) + position);
 	}
 
 	private void generateRight(Vector3I position)
 	{
 		st.SetNormal(Vector3.Left);
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(1, 0, -1) + position);
+		st.AddVertex(new Vector3(1, 0, 0) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(1, 1, 0) + position);
+		st.AddVertex(new Vector3(1, 1, 1) + position);
 		st.SetUV(new Vector2(0,1));
-		st.AddVertex(new Vector3(1, 1, -1) + position);
+		st.AddVertex(new Vector3(1, 1, 0) + position);
 		
 		
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(1, 0, -1) + position);
-		st.SetUV(new Vector2(1,0));
 		st.AddVertex(new Vector3(1, 0, 0) + position);
+		st.SetUV(new Vector2(1,0));
+		st.AddVertex(new Vector3(1, 0, 1) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(1, 1, 0) + position);
+		st.AddVertex(new Vector3(1, 1, 1) + position);
 		
 	}
 
@@ -174,19 +173,19 @@ public partial class Chunk : StaticBody3D
 	{
 		st.SetNormal(Vector3.Right);
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(0, 0, 0) + position);
+		st.AddVertex(new Vector3(0, 0, 1) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(0, 1, -1) + position);
-		st.SetUV(new Vector2(0,1));
 		st.AddVertex(new Vector3(0, 1, 0) + position);
+		st.SetUV(new Vector2(0,1));
+		st.AddVertex(new Vector3(0, 1, 1) + position);
 		
 		
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(0, 0, 0) + position);
+		st.AddVertex(new Vector3(0, 0, 1) + position);
 		st.SetUV(new Vector2(1,0));
-		st.AddVertex(new Vector3(0, 0, -1) + position);
+		st.AddVertex(new Vector3(0, 0, 0) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(0, 1, -1) + position);
+		st.AddVertex(new Vector3(0, 1, 0) + position);
 		
 	}
 
@@ -194,35 +193,35 @@ public partial class Chunk : StaticBody3D
 	{
 		st.SetNormal(Vector3.Up);
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(0, 1, 0) + position);
+		st.AddVertex(new Vector3(0, 1, 1) + position);
 		st.SetUV(new Vector2(0,1));
-		st.AddVertex(new Vector3(0, 1, -1) + position);
+		st.AddVertex(new Vector3(0, 1, 0) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(1, 1, -1) + position);
+		st.AddVertex(new Vector3(1, 1, 0) + position);
 		
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(0, 1, 0) + position);
+		st.AddVertex(new Vector3(0, 1, 1) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(1, 1, -1) + position);
-		st.SetUV(new Vector2(1,0));
 		st.AddVertex(new Vector3(1, 1, 0) + position);
+		st.SetUV(new Vector2(1,0));
+		st.AddVertex(new Vector3(1, 1, 1) + position);
 	}
 
 	private void generateBottom(Vector3I position)
 	{
 		st.SetNormal(Vector3.Down);
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(0, 0, -1) + position);
-		st.SetUV(new Vector2(0,1));
 		st.AddVertex(new Vector3(0, 0, 0) + position);
+		st.SetUV(new Vector2(0,1));
+		st.AddVertex(new Vector3(0, 0, 1) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(1, 0, 0) + position);
+		st.AddVertex(new Vector3(1, 0, 1) + position);
 		
 		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(0, 0, -1) + position);
+		st.AddVertex(new Vector3(0, 0, 0) + position);
 		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(1, 0, 0) + position);
+		st.AddVertex(new Vector3(1, 0, 1) + position);
 		st.SetUV(new Vector2(1,0));
-		st.AddVertex(new Vector3(1, 0, -1) + position);
+		st.AddVertex(new Vector3(1, 0, 0) + position);
 	}
 }
