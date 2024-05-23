@@ -10,12 +10,13 @@ public partial class Interaction : RayCast3D
 			{
 				Node3D collider = GetCollider() as Node3D;
 				Chunk ch = collider.GetParent().GetParent() as Chunk;
-				Vector3I pos = (Vector3I)GetCollisionPoint();
+				Vector3 pos = GetCollisionPoint();
+				Vector3 normal = GetCollisionNormal();
 
 				GD.Print(GetCollisionPoint());
 
 				pos -= ch.Offset;
-				ch.SpawnBlock(pos);
+				ch.SpawnBlock((Vector3I)(pos + normal/2));
 			}
 
 		if (Input.IsActionJustPressed("fire"))
@@ -29,7 +30,7 @@ public partial class Interaction : RayCast3D
 				GD.Print(GetCollisionPoint());
 
 				pos -= ch.Offset;
-				ch.BreakBlock((Vector3I)(pos));
+				ch.BreakBlock((Vector3I)(pos - normal/2));
 			}
 	}
 }
