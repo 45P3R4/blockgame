@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://player/Camera.cs" id="1_xxdct"]
 [ext_resource type="Script" path="res://PlayerFly/PlayerFly.cs" id="2_8t86j"]
-[ext_resource type="Script" path="res://Interaction.cs" id="3_4610y"]
+[ext_resource type="Script" path="res://player/Interaction.cs" id="3_4610y"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fixnr"]
 size = Vector3(0.8, 0.8, 0.8)

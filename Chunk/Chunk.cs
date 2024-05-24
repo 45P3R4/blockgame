@@ -4,7 +4,8 @@ public partial class Chunk : StaticBody3D
 {
 	public enum BlockType {
 		Air = 0,
-		Stone = 1
+		Stone = 1,
+		Dirt = 2
 	};
 
 	public Vector3I Offset = Vector3I.Zero;
@@ -13,12 +14,14 @@ public partial class Chunk : StaticBody3D
 
 	private MeshInstance3D instance;
 	private NoiseTexture2D noise;
+	private Material material;
 	private SurfaceTool st = new SurfaceTool();
 
 	private int[,,] chunkData = new int[width, height, width];
 
     public void Init()
 	{
+		material = GD.Load<Material>("res://Chunk/chunk.tres");
 		instance = GetChild<MeshInstance3D>(0);
         noise = new NoiseTexture2D
         {
@@ -60,6 +63,7 @@ public partial class Chunk : StaticBody3D
 		if(GetChild(0).GetChildCount() > 0)
 			GetChild(0).GetChild(0).QueueFree();
 		instance.CreateTrimeshCollision();
+		instance.Mesh.SurfaceSetMaterial(0, material);
 	}
 
 	private void GenerateChunkData()

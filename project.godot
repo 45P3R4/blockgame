@@ -14,7 +14,6 @@ config/name="blockgame"
 run/main_scene="res://TestLevel.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
-config/icon="res://icon.svg"
 
 [dotnet]
 

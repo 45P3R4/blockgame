@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://dkp77qy66bvf2"]
+[gd_scene load_steps=7 format=3 uid="uid://dkp77qy66bvf2"]
 
 [ext_resource type="Script" path="res://player/Camera.cs" id="1_asfvr"]
 [ext_resource type="Script" path="res://player/Movement.cs" id="1_qs22l"]
-[ext_resource type="PackedScene" uid="uid://bnl6dfta8b5ya" path="res://player/PlayerUI.tscn" id="2_jbx1w"]
-[ext_resource type="Script" path="res://Interaction.cs" id="3_nwttu"]
+[ext_resource type="PackedScene" uid="uid://bnl6dfta8b5ya" path="res://UI/PlayerUI.tscn" id="2_jbx1w"]
+[ext_resource type="Script" path="res://player/Interaction.cs" id="3_6hty4"]
+[ext_resource type="PackedScene" uid="uid://d188hcqk1cbke" path="res://UI/DebugUI.tscn" id="5_wxia7"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cjvvl"]
 size = Vector3(0.8, 1.8, 0.8)
@@ -24,7 +25,9 @@ script = ExtResource("1_asfvr")
 LookAroundSpeed = 0.002
 
 [node name="RayCast3D" type="RayCast3D" parent="CharacterBody3D/Camera3D"]
-target_position = Vector3(0, 0, -3)
-script = ExtResource("3_nwttu")
+target_position = Vector3(0, 0, -4)
+script = ExtResource("3_6hty4")
 
 [node name="PlayerUi" parent="." instance=ExtResource("2_jbx1w")]
+
+[node name="DebugUi" parent="." instance=ExtResource("5_wxia7")]

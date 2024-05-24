@@ -13,8 +13,6 @@ public partial class Interaction : RayCast3D
 				Vector3 pos = GetCollisionPoint();
 				Vector3 normal = GetCollisionNormal();
 
-				GD.Print(GetCollisionPoint());
-
 				pos -= ch.Offset;
 				ch.SpawnBlock((Vector3I)(pos + normal/2));
 			}
@@ -26,8 +24,6 @@ public partial class Interaction : RayCast3D
 				Chunk ch = collider.GetParent().GetParent() as Chunk;
 				Vector3 pos = GetCollisionPoint();
 				Vector3 normal = GetCollisionNormal();
-
-				GD.Print(GetCollisionPoint());
 
 				pos -= ch.Offset;
 				ch.BreakBlock((Vector3I)(pos - normal/2));
