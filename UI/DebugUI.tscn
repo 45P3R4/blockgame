@@ -19,5 +19,5 @@ script = ExtResource("1_hn5p1")
 layout_mode = 1
 offset_right = 109.0
 offset_bottom = 23.0
-text = " FPS: 0asasdad "
+text = " FPS: 0"
 label_settings = SubResource("LabelSettings_bruy7")

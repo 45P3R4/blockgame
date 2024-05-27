@@ -17,7 +17,7 @@ public partial class Chunk : StaticBody3D
 	private Material material;
 	private SurfaceTool st = new SurfaceTool();
 
-	private int[,,] chunkData = new int[width, height, width];
+	public int[,,] chunkData = new int[width, height, width];
 
     public void Init()
 	{
@@ -31,48 +31,37 @@ public partial class Chunk : StaticBody3D
 				Offset = new Vector3(Offset.X, Offset.Z, 0)
 			}
         };
-
         GenerateChunkData();
-		GenerateChunk();	
 	}
 
 	public void SpawnBlock(Vector3I position)
 	{
+		
 		chunkData[position.X,position.Y,position.Z] = 1;
 		GenerateChunk();
+		World.chunk[Offset.X/16, Offset.Z/16+1].GenerateChunk();
+		World.chunk[Offset.X/16+1, Offset.Z/16].GenerateChunk();
+		World.chunk[Offset.X/16, Offset.Z/16-1].GenerateChunk();
+		World.chunk[Offset.X/16-1, Offset.Z/16].GenerateChunk();
 	}
 
 	public void BreakBlock(Vector3I position)
 	{
 		chunkData[position.X,position.Y,position.Z] = 0;
 		GenerateChunk();
+		World.chunk[Offset.X/16, Offset.Z/16+1].GenerateChunk();
+		World.chunk[Offset.X/16+1, Offset.Z/16].GenerateChunk();
+		World.chunk[Offset.X/16, Offset.Z/16-1].GenerateChunk();
+		World.chunk[Offset.X/16-1, Offset.Z/16].GenerateChunk();
 	}
 
-	public void GenerateChunk() 
-	{
-		st.Begin(Mesh.PrimitiveType.Triangles);
-
-		for (int x = 0; x < width; x++)
-			for (int z = 0; z < width; z++)
-				for (int y = 0; y < height; y++)
-				{
-					generateBlock(x, y, z);
-				}
-
-		instance.Mesh = st.Commit();
-		if(GetChild(0).GetChildCount() > 0)
-			GetChild(0).GetChild(0).QueueFree();
-		instance.CreateTrimeshCollision();
-		instance.Mesh.SurfaceSetMaterial(0, material);
-	}
-
-	private void GenerateChunkData()
+	public void GenerateChunkData()
 	{
 		noise.Noise.Set("Offset", new Vector3(Offset.X, Offset.Z, 0));
 
 		for (int x = 0; x < width; x++)
-			for (int z = 0; z < width; z++)
-				for (int y = 0; y < height; y++)
+			for (int y = 0; y < height; y++)
+				for (int z = 0; z < width; z++)
 				{
 					if (y <= 16 + Mathf.FloorToInt(noise.Noise.GetNoise2D(x,z) * 10))
 						chunkData[x,y,z] = 1;
@@ -81,28 +70,47 @@ public partial class Chunk : StaticBody3D
 				}
 	}
 
+	public void GenerateChunk() 
+	{
+		st.Begin(Mesh.PrimitiveType.Triangles);
+
+		for (int x = 0; x < width; x++)
+			for (int y = 0; y < height; y++)
+				for (int z = 0; z < width; z++)
+				{
+					generateBlock(x, y, z);
+				}
+
+		if(GetChild(0).GetChildCount() > 0)
+			GetChild(0).GetChild(0).QueueFree();
+
+		instance.Mesh = st.Commit();
+		instance.CreateTrimeshCollision();
+		instance.Mesh.SurfaceSetMaterial(0, material);
+	}
+
 	private void generateBlock(int x, int y, int z)
 	{
 		if(getBlock(new Vector3I(x, y, z)) == 0)
 			return;
 
 		if (getBlock(new Vector3I(x, y, z-1)) == 0)
-			generateFront(new Vector3I(Offset.X + x, y, Offset.Z + z));
+			generateFront(new Vector3I(x, y, z));
 
 		if (getBlock(new Vector3I(x, y, z+1)) == 0)
-			generateBack(new Vector3I(Offset.X + x, y, Offset.Z + z));
+			generateBack(new Vector3I(x, y, z));
 
 		if (getBlock(new Vector3I(x, y-1, z)) == 0)
-			generateBottom(new Vector3I(Offset.X + x, y, Offset.Z + z));
+			generateBottom(new Vector3I(x, y, z));
 
 		if (getBlock(new Vector3I(x, y+1, z)) == 0)
-			generateTop(new Vector3I(Offset.X + x, y, Offset.Z + z));
+			generateTop(new Vector3I(x, y, z));
 
 		if (getBlock(new Vector3I(x-1, y, z)) == 0)
-			generateLeft(new Vector3I(Offset.X + x, y, Offset.Z + z));
+			generateLeft(new Vector3I(x, y, z));
 
 		if (getBlock(new Vector3I(x+1, y, z)) == 0)
-			generateRight(new Vector3I(Offset.X + x, y, Offset.Z + z));
+			generateRight(new Vector3I(x, y, z));
 	}
 
 	private int getBlock(Vector3I position)
@@ -110,11 +118,34 @@ public partial class Chunk : StaticBody3D
 		if (position.X >= 0 && position.X < width &&
 			position.Y >= 0 && position.Y < height &&
 			position.Z >= 0 && position.Z < width)
-			{
-				return chunkData[position.X, position.Y, position.Z];
-			}
+		{
+			return chunkData[position.X, position.Y, position.Z];
+		}
 		else
-			return 1;
+		{
+			if(position.Z < 0 && Offset.Z/16 > 0)
+			{
+				return World.chunk[Offset.X/16, Offset.Z/16-1].
+				chunkData[position.X, position.Y, position.Z+width];
+			}
+			if(position.Z >= width && Offset.Z/16 < World.RenderDistance-1)
+			{
+				return World.chunk[Offset.X/16, Offset.Z/16+1].
+				chunkData[position.X, position.Y, position.Z-width];
+			}
+
+			if(position.X < 0 && Offset.X/16 > 0)
+			{
+				return World.chunk[Offset.X/16-1, Offset.Z/16].
+				chunkData[position.X+width, position.Y, position.Z];
+			}
+			if(position.X >= width && Offset.Z/16 < World.RenderDistance-1)
+			{
+				return World.chunk[Offset.X/16+1, Offset.Z/16].
+				chunkData[position.X-width, position.Y, position.Z];
+			}
+		}
+		return 1;
 	}
 
 	private void generateBack(Vector3I position)

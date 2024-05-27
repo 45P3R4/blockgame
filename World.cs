@@ -2,19 +2,28 @@ using Godot;
 
 public partial class World : Node3D
 {
+	public static World WorldS;
+	public static int RenderDistance = 16;
+	public static Chunk[,] chunk = new Chunk[RenderDistance, RenderDistance];
+
 	PackedScene chunkScene = GD.Load<PackedScene>("res://Chunk/chunk.tscn");
 
 	public override void _Ready()
 	{
-		Chunk ch;
-
-		for (int x = 0; x < 16; x++)
-			for (int z = 0; z < 16; z++)
+		for (int x = 0; x < RenderDistance; x++)
+			for (int z = 0; z < RenderDistance; z++)
 			{
-				ch = chunkScene.Instantiate<Chunk>();
-				ch.Offset = new Vector3I(x*16,0,z*16);
-				ch.Init();
-				AddChild(ch);
+				chunk[x,z] = chunkScene.Instantiate<Chunk>();
+				chunk[x,z].Offset = new Vector3I(x*16,0,z*16);
+				chunk[x,z].Init();
+				chunk[x,z].Position = new Vector3I(x*16,0,z*16);
+				AddChild(chunk[x,z]);
+			}
+			
+		for (int x = 0; x < RenderDistance; x++)
+			for (int z = 0; z < RenderDistance; z++)
+			{
+				chunk[x,z].GenerateChunk();
 			}
 	}
 }
