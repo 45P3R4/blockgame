@@ -1,9 +1,9 @@
 [gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://d38q1aeie0xm8"]
 
 [ext_resource type="Shader" path="res://Chunk/chunk.gdshader" id="1_t3vft"]
-[ext_resource type="Texture2D" uid="uid://dtf8ejv25j60f" path="res://Chunk/stone.png" id="2_s5rru"]
+[ext_resource type="Texture2D" uid="uid://dj730ennj7vgw" path="res://Assets/Textures/cobblestone.png" id="2_8xib3"]
 
 [resource]
 render_priority = 0
 shader = ExtResource("1_t3vft")
-shader_parameter/tex = ExtResource("2_s5rru")
+shader_parameter/tex = ExtResource("2_8xib3")

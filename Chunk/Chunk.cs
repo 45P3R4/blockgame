@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Godot;
 
 public partial class Chunk : StaticBody3D
@@ -5,7 +6,8 @@ public partial class Chunk : StaticBody3D
 	public enum BlockType {
 		Air = 0,
 		Stone = 1,
-		Dirt = 2
+		Dirt = 2,
+		Cobblestone = 3
 	};
 
 	public Vector3I Offset = Vector3I.Zero;
@@ -22,6 +24,7 @@ public partial class Chunk : StaticBody3D
     public void Init()
 	{
 		material = GD.Load<Material>("res://Chunk/chunk.tres");
+		material.Set("shader_parameter/tex", TextureBuilder.atlas);
 		instance = GetChild<MeshInstance3D>(0);
         noise = new NoiseTexture2D
         {
@@ -37,7 +40,7 @@ public partial class Chunk : StaticBody3D
 	public void SpawnBlock(Vector3I position)
 	{
 		
-		chunkData[position.X,position.Y,position.Z] = 1;
+		chunkData[position.X,position.Y,position.Z] = (int)BlockType.Dirt;
 		GenerateChunk();
 		World.chunk[Offset.X/16, Offset.Z/16+1].GenerateChunk();
 		World.chunk[Offset.X/16+1, Offset.Z/16].GenerateChunk();
@@ -63,8 +66,15 @@ public partial class Chunk : StaticBody3D
 			for (int y = 0; y < height; y++)
 				for (int z = 0; z < width; z++)
 				{
-					if (y <= 16 + Mathf.FloorToInt(noise.Noise.GetNoise2D(x,z) * 10))
-						chunkData[x,y,z] = 1;
+					if (y <= 10 + Mathf.FloorToInt(noise.Noise.GetNoise2D(x,z) * 10))
+					{
+						chunkData[x,y,z] = (int)BlockType.Stone;
+					}
+					else if (y <= 16 + Mathf.FloorToInt(noise.Noise.GetNoise2D(x,z) * 10))
+					{
+						chunkData[x,y,z] = (int)BlockType.Dirt;
+					}
+						
 					else
 						chunkData[x,y,z] = 0;
 				}
@@ -95,22 +105,22 @@ public partial class Chunk : StaticBody3D
 			return;
 
 		if (getBlock(new Vector3I(x, y, z-1)) == 0)
-			generateFront(new Vector3I(x, y, z));
+			generateFront(new Vector3I(x, y, z), (BlockType)chunkData[x,y,z]);
 
 		if (getBlock(new Vector3I(x, y, z+1)) == 0)
-			generateBack(new Vector3I(x, y, z));
+			generateBack(new Vector3I(x, y, z), (BlockType)chunkData[x,y,z]);
 
 		if (getBlock(new Vector3I(x, y-1, z)) == 0)
-			generateBottom(new Vector3I(x, y, z));
+			generateBottom(new Vector3I(x, y, z), (BlockType)chunkData[x,y,z]);
 
 		if (getBlock(new Vector3I(x, y+1, z)) == 0)
-			generateTop(new Vector3I(x, y, z));
+			generateTop(new Vector3I(x, y, z), (BlockType)chunkData[x,y,z]);
 
 		if (getBlock(new Vector3I(x-1, y, z)) == 0)
-			generateLeft(new Vector3I(x, y, z));
+			generateLeft(new Vector3I(x, y, z), (BlockType)chunkData[x,y,z]);
 
 		if (getBlock(new Vector3I(x+1, y, z)) == 0)
-			generateRight(new Vector3I(x, y, z));
+			generateRight(new Vector3I(x, y, z), (BlockType)chunkData[x,y,z]);
 	}
 
 	private int getBlock(Vector3I position)
@@ -148,115 +158,126 @@ public partial class Chunk : StaticBody3D
 		return 1;
 	}
 
-	private void generateBack(Vector3I position)
+	private Vector2 setTextureUV(int x, int y, BlockType blockType)
+	{
+		Vector2 uv = new Vector2(x, y);
+		if (x <= 0)
+			uv.X = ((float)blockType - 1) / 16;
+		if(x > 0)
+			uv.X = (float)blockType / 16;
+
+		return uv;
+	}
+
+	private void generateBack(Vector3I position, BlockType blockType)
 	{
 		st.SetNormal(Vector3.Back);
-		st.SetUV(new Vector2(0,0));
+		st.SetUV(setTextureUV(0, 0, blockType));
 		st.AddVertex(new Vector3(0, 0, 1) + position);
-		st.SetUV(new Vector2(0,1));
+		st.SetUV(setTextureUV(0, 1, blockType));
 		st.AddVertex(new Vector3(0, 1, 1) + position);
-		st.SetUV(new Vector2(1,1));
+		st.SetUV(setTextureUV(1, 1, blockType));
 		st.AddVertex(new Vector3(1, 1, 1) + position);
 
-		st.SetUV(new Vector2(0,0));
+		st.SetUV(setTextureUV(0, 0, blockType));
 		st.AddVertex(new Vector3(0, 0, 1) + position);
-		st.SetUV(new Vector2(1,1));
+		st.SetUV(setTextureUV(1, 1, blockType));
 		st.AddVertex(new Vector3(1, 1, 1) + position);
-		st.SetUV(new Vector2(1,0));
+		st.SetUV(setTextureUV(1, 0, blockType));
 		st.AddVertex(new Vector3(1, 0, 1) + position);
 	}
 
-	private void generateFront(Vector3I position)
+	private void generateFront(Vector3I position, BlockType blockType)
 	{
 		st.SetNormal(Vector3.Forward);
-		st.SetUV(new Vector2(0,0));
+		st.SetUV(setTextureUV(0, 0, blockType));
 		st.AddVertex(new Vector3(1, 0, 0) + position);
-		st.SetUV(new Vector2(0,1));
+		st.SetUV(setTextureUV(0, 1, blockType));
 		st.AddVertex(new Vector3(1, 1, 0) + position);
-		st.SetUV(new Vector2(1,1));
+		st.SetUV(setTextureUV(1, 1, blockType));
 		st.AddVertex(new Vector3(0, 1, 0) + position);
 		
-		st.SetUV(new Vector2(0,0));
+		st.SetUV(setTextureUV(0, 0, blockType));
 		st.AddVertex(new Vector3(1, 0, 0) + position);
-		st.SetUV(new Vector2(1,1));
+		st.SetUV(setTextureUV(1, 1, blockType));
 		st.AddVertex(new Vector3(0, 1, 0) + position);
-		st.SetUV(new Vector2(1,0));
+		st.SetUV(setTextureUV(1, 0, blockType));
 		st.AddVertex(new Vector3(0, 0, 0) + position);
 	}
 
-	private void generateRight(Vector3I position)
-	{
-		st.SetNormal(Vector3.Left);
-		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(1, 0, 0) + position);
-		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(1, 1, 1) + position);
-		st.SetUV(new Vector2(0,1));
-		st.AddVertex(new Vector3(1, 1, 0) + position);
-		
-		
-		st.SetUV(new Vector2(0,0));
-		st.AddVertex(new Vector3(1, 0, 0) + position);
-		st.SetUV(new Vector2(1,0));
-		st.AddVertex(new Vector3(1, 0, 1) + position);
-		st.SetUV(new Vector2(1,1));
-		st.AddVertex(new Vector3(1, 1, 1) + position);
-		
-	}
-
-	private void generateLeft(Vector3I position)
+	private void generateRight(Vector3I position, BlockType blockType)
 	{
 		st.SetNormal(Vector3.Right);
-		st.SetUV(new Vector2(0,0));
+		st.SetUV(setTextureUV(0, 0, blockType));
+		st.AddVertex(new Vector3(1, 0, 0) + position);
+		st.SetUV(setTextureUV(1, 1, blockType));
+		st.AddVertex(new Vector3(1, 1, 1) + position);
+		st.SetUV(setTextureUV(0, 1, blockType));
+		st.AddVertex(new Vector3(1, 1, 0) + position);
+		
+		
+		st.SetUV(setTextureUV(0, 0, blockType));
+		st.AddVertex(new Vector3(1, 0, 0) + position);
+		st.SetUV(setTextureUV(1, 0, blockType));
+		st.AddVertex(new Vector3(1, 0, 1) + position);
+		st.SetUV(setTextureUV(1, 1, blockType));
+		st.AddVertex(new Vector3(1, 1, 1) + position);
+		
+	}
+
+	private void generateLeft(Vector3I position, BlockType blockType)
+	{
+		st.SetNormal(Vector3.Left);
+		st.SetUV(setTextureUV(0, 0, blockType));
 		st.AddVertex(new Vector3(0, 0, 1) + position);
-		st.SetUV(new Vector2(1,1));
+		st.SetUV(setTextureUV(1, 1, blockType));
 		st.AddVertex(new Vector3(0, 1, 0) + position);
-		st.SetUV(new Vector2(0,1));
+		st.SetUV(setTextureUV(0, 1, blockType));
 		st.AddVertex(new Vector3(0, 1, 1) + position);
 		
 		
-		st.SetUV(new Vector2(0,0));
+		st.SetUV(setTextureUV(0, 0, blockType));
 		st.AddVertex(new Vector3(0, 0, 1) + position);
-		st.SetUV(new Vector2(1,0));
+		st.SetUV(setTextureUV(1, 0, blockType));
 		st.AddVertex(new Vector3(0, 0, 0) + position);
-		st.SetUV(new Vector2(1,1));
+		st.SetUV(setTextureUV(1, 1, blockType));
 		st.AddVertex(new Vector3(0, 1, 0) + position);
 		
 	}
 
-	private void generateTop(Vector3I position)
+	private void generateTop(Vector3I position, BlockType blockType)
 	{
 		st.SetNormal(Vector3.Up);
-		st.SetUV(new Vector2(0,0));
+		st.SetUV(setTextureUV(0, 0, blockType));
 		st.AddVertex(new Vector3(0, 1, 1) + position);
-		st.SetUV(new Vector2(0,1));
+		st.SetUV(setTextureUV(0, 1, blockType));
 		st.AddVertex(new Vector3(0, 1, 0) + position);
-		st.SetUV(new Vector2(1,1));
+		st.SetUV(setTextureUV(1, 1, blockType));
 		st.AddVertex(new Vector3(1, 1, 0) + position);
 		
-		st.SetUV(new Vector2(0,0));
+		st.SetUV(setTextureUV(0, 0, blockType));
 		st.AddVertex(new Vector3(0, 1, 1) + position);
-		st.SetUV(new Vector2(1,1));
+		st.SetUV(setTextureUV(1, 1, blockType));
 		st.AddVertex(new Vector3(1, 1, 0) + position);
-		st.SetUV(new Vector2(1,0));
+		st.SetUV(setTextureUV(1, 0, blockType));
 		st.AddVertex(new Vector3(1, 1, 1) + position);
 	}
 
-	private void generateBottom(Vector3I position)
+	private void generateBottom(Vector3I position, BlockType blockType)
 	{
 		st.SetNormal(Vector3.Down);
-		st.SetUV(new Vector2(0,0));
+		st.SetUV(setTextureUV(0, 0, blockType));
 		st.AddVertex(new Vector3(0, 0, 0) + position);
-		st.SetUV(new Vector2(0,1));
+		st.SetUV(setTextureUV(0, 1, blockType));
 		st.AddVertex(new Vector3(0, 0, 1) + position);
-		st.SetUV(new Vector2(1,1));
+		st.SetUV(setTextureUV(1, 1, blockType));
 		st.AddVertex(new Vector3(1, 0, 1) + position);
 		
-		st.SetUV(new Vector2(0,0));
+		st.SetUV(setTextureUV(0, 0, blockType));
 		st.AddVertex(new Vector3(0, 0, 0) + position);
-		st.SetUV(new Vector2(1,1));
+		st.SetUV(setTextureUV(1, 1, blockType));
 		st.AddVertex(new Vector3(1, 0, 1) + position);
-		st.SetUV(new Vector2(1,0));
+		st.SetUV(setTextureUV(1, 0, blockType));
 		st.AddVertex(new Vector3(1, 0, 0) + position);
 	}
 }

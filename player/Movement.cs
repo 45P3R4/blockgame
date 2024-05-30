@@ -7,7 +7,7 @@ public partial class Movement : CharacterBody3D
 	private Node3D Camera;
 
 	private const float Speed = 5.0f;
-	private const float JumpVelocity = 6f;
+	private const float JumpVelocity = 7f;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	private float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
