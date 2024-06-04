@@ -11,13 +11,24 @@ config_version=5
 [application]
 
 config/name="blockgame"
-run/main_scene="res://TestLevel.tscn"
+run/main_scene="res://UI/Menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/scale_mode="integer"
 
 [dotnet]
 
 project/assembly_name="blockgame"
+
+[gui]
+
+theme/default_theme_scale=4.0
+theme/custom="res://UI/UITheme.tres"
+theme/default_font_antialiasing=0
 
 [importer_defaults]
 

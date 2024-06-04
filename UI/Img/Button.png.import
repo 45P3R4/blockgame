@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvtvmifkte6lt"
-path="res://.godot/imported/cross.png-2a55e2fc93ae1c572504d034b92ff897.ctex"
+uid="uid://dh8ais8xbs5hw"
+path="res://.godot/imported/Button.png-9ec6598db93e7ba92b27e87a557d678d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/cross.png"
-dest_files=["res://.godot/imported/cross.png-2a55e2fc93ae1c572504d034b92ff897.ctex"]
+source_file="res://UI/Img/Button.png"
+dest_files=["res://.godot/imported/Button.png-9ec6598db93e7ba92b27e87a557d678d.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

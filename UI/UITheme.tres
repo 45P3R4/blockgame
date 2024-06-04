@@ -1,0 +1,43 @@
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://pgtnxwuh1thr"]
+
+[ext_resource type="FontFile" uid="uid://e4p504ctiw7x" path="res://UI/Font/monogram-extended.ttf" id="1_id4mj"]
+[ext_resource type="Texture2D" uid="uid://dh8ais8xbs5hw" path="res://UI/Img/Button.png" id="1_ox0nb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u1l36"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gt25g"]
+texture = ExtResource("1_ox0nb")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(0, 0, 16, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rqksj"]
+texture = ExtResource("1_ox0nb")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(0, 8, 16, 8)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mykws"]
+texture = ExtResource("1_ox0nb")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(0, 16, 16, 8)
+
+[resource]
+default_font = ExtResource("1_id4mj")
+default_font_size = 32
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 8
+Button/styles/focus = SubResource("StyleBoxEmpty_u1l36")
+Button/styles/hover = SubResource("StyleBoxTexture_gt25g")
+Button/styles/normal = SubResource("StyleBoxTexture_rqksj")
+Button/styles/pressed = SubResource("StyleBoxTexture_mykws")
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = 0
+Label/constants/outline_size = 8

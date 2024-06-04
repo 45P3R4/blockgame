@@ -1,8 +1,7 @@
 using Godot;
 
-public partial class World : Node3D
+public partial class ChunkRenderer : Node3D
 {
-	public static World WorldS;
 	public static int RenderDistance = 16;
 	public static Chunk[,] chunk = new Chunk[RenderDistance, RenderDistance];
 
@@ -23,7 +22,7 @@ public partial class World : Node3D
 		for (int x = 0; x < RenderDistance; x++)
 			for (int z = 0; z < RenderDistance; z++)
 			{
-				chunk[x,z].GenerateChunk();
+				chunk[x,z].GenerateChunkMesh();
 			}
 	}
 }

@@ -29,4 +29,14 @@ public partial class Interaction : RayCast3D
 				ch.BreakBlock((Vector3I)(pos - normal/2));
 			}
 	}
+
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event is InputEventKey eventKey)
+			if (eventKey.Pressed && eventKey.Keycode == Key.Escape)
+			{
+				GetTree().ChangeSceneToFile("res://UI/Menu.tscn");
+				Input.MouseMode = Input.MouseModeEnum.Visible;
+			}
+	}
 }

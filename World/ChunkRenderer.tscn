@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccbfn26oruda3"]
+
+[ext_resource type="Script" path="res://World/ChunkRenderer.cs" id="1_lj5f3"]
+[ext_resource type="Script" path="res://World/TextureBuilder.cs" id="2_u77dx"]
+
+[node name="World" type="Node3D"]
+script = ExtResource("1_lj5f3")
+
+[node name="TextureBuilder" type="Node3D" parent="."]
+script = ExtResource("2_u77dx")

@@ -28,13 +28,6 @@ public partial class Camera : Camera3D
 		}
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
-{
-    if (@event is InputEventKey eventKey)
-        if (eventKey.Pressed && eventKey.Keycode == Key.Escape)
-            GetTree().Quit();
-}
-
     public override void _Ready()
     {
 		Input.MouseMode = Input.MouseModeEnum.Captured;
