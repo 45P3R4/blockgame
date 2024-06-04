@@ -17,7 +17,7 @@ public partial class DebugUI : Control
     public override void _Process(double delta)
 	{
 		label.Text = "FPS: " + Engine.GetFramesPerSecond();
-        label.Text += "\nPosition: X: " + (int)player.Position.X + " Y: " + (int)player.Position.Y + " Z: " + (int)player.Position.Z;
+        label.Text += "\nX: " + (int)player.Position.X + " Y: " + (int)player.Position.Y + " Z: " + (int)player.Position.Z;
         texture.Texture = TextureBuilder.atlas;
 	}
 }

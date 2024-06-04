@@ -11,5 +11,6 @@ public partial class RenderDistanceSetting : SpinBox
     public override void _ValueChanged(double newValue)
     {
         ChunkRenderer.RenderDistance = (int)newValue;
+        ChunkRenderer.chunk = new Chunk[(int)newValue, (int)newValue];
     }
 }

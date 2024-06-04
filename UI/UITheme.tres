@@ -1,7 +1,7 @@
-[gd_resource type="Theme" load_steps=7 format=3 uid="uid://pgtnxwuh1thr"]
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://pgtnxwuh1thr"]
 
-[ext_resource type="FontFile" uid="uid://e4p504ctiw7x" path="res://UI/Font/monogram-extended.ttf" id="1_id4mj"]
 [ext_resource type="Texture2D" uid="uid://dh8ais8xbs5hw" path="res://UI/Img/Button.png" id="1_ox0nb"]
+[ext_resource type="Texture2D" uid="uid://cj3dx50txrvhx" path="res://UI/Img/SpinBox.png" id="3_y8n2b"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u1l36"]
 
@@ -29,9 +29,11 @@ texture_margin_right = 4.0
 texture_margin_bottom = 4.0
 region_rect = Rect2(0, 16, 16, 8)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qff7k"]
+bg_color = Color(0, 0, 0, 0.54902)
+
 [resource]
-default_font = ExtResource("1_id4mj")
-default_font_size = 32
+default_font_size = 15
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/constants/outline_size = 8
 Button/styles/focus = SubResource("StyleBoxEmpty_u1l36")
@@ -41,3 +43,5 @@ Button/styles/pressed = SubResource("StyleBoxTexture_mykws")
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/line_spacing = 0
 Label/constants/outline_size = 8
+Panel/styles/panel = SubResource("StyleBoxFlat_qff7k")
+SpinBox/icons/updown = ExtResource("3_y8n2b")

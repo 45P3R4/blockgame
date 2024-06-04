@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cvtvmifkte6lt"
-path="res://.godot/imported/Cross.png-eba1681594dda9f5c4dd904ee5a82e3b.ctex"
+uid="uid://dwthqo5qpxofu"
+path="res://.godot/imported/Panel.png-73fae412b2d8861b45495a2e02b31f18.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/Img/Cross.png"
-dest_files=["res://.godot/imported/Cross.png-eba1681594dda9f5c4dd904ee5a82e3b.ctex"]
+source_file="res://UI/Img/Panel.png"
+dest_files=["res://.godot/imported/Panel.png-73fae412b2d8861b45495a2e02b31f18.ctex"]
 
 [params]
 
@@ -21,7 +21,7 @@ compress/lossy_quality=0.7
 compress/hdr_compression=1
 compress/normal_map=0
 compress/channel_pack=0
-mipmaps/generate=false
+mipmaps/generate=true
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
@@ -31,4 +31,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

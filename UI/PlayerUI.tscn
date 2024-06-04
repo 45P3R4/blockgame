@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bnl6dfta8b5ya"]
 
-[ext_resource type="Texture2D" uid="uid://cvtvmifkte6lt" path="res://UI/Img/cross.png" id="1_1k3sj"]
+[ext_resource type="Texture2D" uid="uid://cvtvmifkte6lt" path="res://UI/Img/Cross.png" id="1_1k3sj"]
 
 [node name="PlayerUi" type="Control"]
 layout_mode = 3
