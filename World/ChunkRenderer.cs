@@ -11,7 +11,7 @@ public partial class ChunkRenderer : Node3D
 
 	public override void _Ready()
 	{
-		
+		player = GetParent().GetNode<Player>("Player");
 
 		for (int x = 0; x < RenderDistance; x++)
 			for (int z = 0; z < RenderDistance; z++)

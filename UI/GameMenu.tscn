@@ -1,7 +1,19 @@
-[gd_scene format=3 uid="uid://b6qmfwinxsqk8"]
+[gd_scene load_steps=3 format=3 uid="uid://b6qmfwinxsqk8"]
+
+[ext_resource type="Script" path="res://UI/Script/BackToGameButton.cs" id="1_2hq0a"]
+[ext_resource type="Script" path="res://UI/Script/ExitToMenuButton.cs" id="2_uqnet"]
 
 [node name="GameMenu" type="Control"]
+z_index = 99
 layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -22,11 +34,15 @@ layout_mode = 2
 [node name="BackButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Вернуться"
+script = ExtResource("1_2hq0a")
 
 [node name="SettingsButton" type="Button" parent="CenterContainer/VBoxContainer"]
 layout_mode = 2
 text = "Настройки"
 
-[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="ExitButton" type="Button" parent="CenterContainer/VBoxContainer" node_paths=PackedStringArray("root")]
 layout_mode = 2
-text = "Выход"
+text = "В главное меню"
+script = ExtResource("2_uqnet")
+scenePath = "res://UI/Menu.tscn"
+root = NodePath("../../..")

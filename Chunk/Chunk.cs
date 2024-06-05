@@ -40,7 +40,7 @@ public partial class Chunk : StaticBody3D
 	public void SpawnBlock(Vector3I position)
 	{
 		
-		chunkData[position.X,position.Y,position.Z] = (int)BlockType.Dirt;
+		chunkData[position.X,position.Y,position.Z] = (int)BlockType.Cobblestone;
 		GenerateChunkMesh();
 		ChunkRenderer.chunk[Offset.X/16, Offset.Z/16+1].GenerateChunkMesh();
 		ChunkRenderer.chunk[Offset.X/16+1, Offset.Z/16].GenerateChunkMesh();

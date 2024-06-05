@@ -14,6 +14,8 @@ config/name="blockgame"
 run/main_scene="res://UI/Menu.tscn"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 boot_splash/bg_color=Color(0, 0, 0, 1)
+boot_splash/image="res://decadapng.png"
+boot_splash/fullsize=false
 
 [display]
 

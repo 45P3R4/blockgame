@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Movement : CharacterBody3D
+public partial class Player : CharacterBody3D
 {
 	[Export]
 	private Node3D Camera;
@@ -12,7 +12,7 @@ public partial class Movement : CharacterBody3D
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	private float gravity = ProjectSettings.GetSetting("physics/3d/default_gravity").AsSingle();
 
-	public override void _Process(double delta)
+	public override void _PhysicsProcess(double delta)
 	{
 		Vector3 velocity = Velocity;
 
@@ -43,5 +43,17 @@ public partial class Movement : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	    public override void _UnhandledInput(InputEvent @event)
+	{
+		if (@event is InputEventKey eventKey)
+			if (eventKey.Pressed && eventKey.Keycode == Key.Escape)
+			{
+				GetTree().Paused = true;
+				Node menuScene = ResourceLoader.Load<PackedScene>("res://UI/GameMenu.tscn").Instantiate();
+				GetTree().Root.AddChild(menuScene);
+				Input.MouseMode = Input.MouseModeEnum.Visible;
+			}
 	}
 }

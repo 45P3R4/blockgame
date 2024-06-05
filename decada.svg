@@ -1,0 +1,33 @@
+<svg width="642" height="84" viewBox="0 0 642 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect x="560" y="11" width="22" height="72" fill="white"/>
+<rect x="620" y="11" width="22" height="72" fill="white"/>
+<rect x="632" y="1" width="22" height="62" transform="rotate(90 632 1)" fill="white"/>
+<rect x="631" y="39" width="22" height="64" transform="rotate(90 631 39)" fill="white"/>
+<path d="M632 1L642 11H632V1Z" fill="white"/>
+<path d="M570 1L560 11H570V1Z" fill="white"/>
+<rect x="336" y="11" width="22" height="72" fill="white"/>
+<rect x="396" y="11" width="22" height="72" fill="white"/>
+<rect x="408" y="1" width="22" height="62" transform="rotate(90 408 1)" fill="white"/>
+<rect x="407" y="39" width="22" height="64" transform="rotate(90 407 39)" fill="white"/>
+<path d="M408 1L418 11H408V1Z" fill="white"/>
+<path d="M346 1L336 11H346V1Z" fill="white"/>
+<rect x="508" y="11" width="22" height="63" fill="white"/>
+<path d="M520 1L530 11H520V1Z" fill="white"/>
+<path d="M530 74L520 83L520 74L530 74Z" fill="white"/>
+<rect x="448" y="1" width="22" height="82" fill="white"/>
+<rect x="520" y="1" width="22" height="54" transform="rotate(90 520 1)" fill="white"/>
+<rect x="520" y="61" width="22" height="54" transform="rotate(90 520 61)" fill="white"/>
+<rect x="112" width="22" height="82" fill="white"/>
+<rect x="194" width="22" height="82" transform="rotate(90 194 0)" fill="white"/>
+<rect x="194" y="61" width="22" height="82" transform="rotate(90 194 61)" fill="white"/>
+<rect x="194" y="31" width="22" height="82" transform="rotate(90 194 31)" fill="white"/>
+<rect x="224" y="1" width="22" height="81" fill="white"/>
+<rect x="306" y="1" width="22" height="82" transform="rotate(90 306 1)" fill="white"/>
+<rect x="306" y="62" width="22" height="82" transform="rotate(90 306 62)" fill="white"/>
+<rect x="60" y="9.87952" width="22" height="63.2289" fill="#FAFF00"/>
+<path d="M72 0L82 9.87952H72V0Z" fill="#FAFF00"/>
+<path d="M82 73.1084L72 82L72 73.1084L82 73.1084Z" fill="#FAFF00"/>
+<rect x="72" width="21.7349" height="54" transform="rotate(90 72 0)" fill="#FAFF00"/>
+<rect x="72" y="60.265" width="21.7349" height="54" transform="rotate(90 72 60.265)" fill="#FAFF00"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M22 0H0V43.5128L22 55.7978V0ZM22 60.2651H0V82H22V60.2651Z" fill="#FAFF00"/>
+</svg>
